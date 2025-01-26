@@ -9,6 +9,10 @@
   "scope": "/",
   "start_url": "/",
   "id": "/",
+  "categories": ["utilities"],
+  "launch_handler": {
+    "client_mode": "focus-existing"
+  },
   "icons": [
     {
       "src": "icons/icon-192x192.png",
@@ -23,10 +27,28 @@
       "purpose": "any maskable"
     }
   ],
+  "screenshots": [
+    {
+      "src": "screenshots/light.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "浅色主题"
+    },
+    {
+      "src": "screenshots/dark.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "深色主题"
+    }
+  ],
   "shortcuts": [
     {
       "name": "切换主题",
-      "url": "/"
+      "url": "/",
+      "icons": [{ "src": "icons/icon-96x96.png", "sizes": "96x96" }]
     }
-  ]
+  ],
+  "prefer_related_applications": false
 } 
