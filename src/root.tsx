@@ -5,6 +5,7 @@ import {
   ServiceWorkerRegister,
 } from "@builder.io/qwik-city";
 import { RouterHead } from "./components/router-head/router-head";
+import { ThemeSwitcher } from './components/ThemeSwitcher';
 import { isDev } from "@builder.io/qwik";
 
 import "./global.css";
@@ -30,6 +31,7 @@ export default component$(() => {
         <RouterHead />
       </head>
       <body lang="en">
+        <ThemeSwitcher />
         <RouterOutlet />
         {!isDev && <ServiceWorkerRegister />}
       </body>
