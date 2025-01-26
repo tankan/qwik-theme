@@ -64,7 +64,6 @@ export default component$(() => {
           connect-src 'self';
           manifest-src 'self';
           worker-src 'self';
-          frame-ancestors 'none';
           base-uri 'self';
           form-action 'self'
         " />
@@ -74,7 +73,11 @@ export default component$(() => {
         {/* PWA 相关 */}
         <link rel="manifest" href="/manifest.json" />
         <link rel="apple-touch-icon" href="/icons/icon-192x192.png" />
-        <link rel="mask-icon" href="/icons/safari-pinned-tab.svg" color="#0056D2" />
+        <link 
+          rel="mask-icon" 
+          href="/icons/safari-pinned-tab.svg" 
+          style={{ color: '#0056D2' }}
+        />
         
         {/* 其他优化 */}
         <meta name="description" content="A theme system for Qwik" />
