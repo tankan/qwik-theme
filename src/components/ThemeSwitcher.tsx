@@ -16,6 +16,17 @@ export const ThemeSwitcher = component$(() => {
     state.theme = newTheme;
     document.documentElement.setAttribute('data-theme', newTheme);
     localStorage.setItem('theme', newTheme);
+
+    // 使用 service worker 发送通知
+    if ('serviceWorker' in navigator && 'Notification' in window) {
+      navigator.serviceWorker.ready.then((registration) => {
+        registration.showNotification('主题已切换', {
+          body: `已切换到${newTheme === 'light' ? '浅色' : '深色'}主题`,
+          icon: '/icons/icon-192x192.png',
+          badge: '/icons/badge-72x72.png'
+        });
+      });
+    }
   });
 
   return (

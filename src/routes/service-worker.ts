@@ -15,4 +15,17 @@ addEventListener("install", () => self.skipWaiting());
 
 addEventListener("activate", () => self.clients.claim());
 
+// 添加推送通知支持
+self.addEventListener('push', (event: PushEvent) => {
+  const options: NotificationOptions = {
+    body: event.data?.text() ?? '新消息',
+    icon: '/icons/icon-192x192.png',
+    badge: '/icons/badge-72x72.png'
+  };
+
+  event.waitUntil(
+    self.registration.showNotification('主题切换通知', options)
+  );
+});
+
 declare const self: ServiceWorkerGlobalScope;
