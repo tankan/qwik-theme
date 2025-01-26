@@ -22,7 +22,10 @@ errorOnDuplicatesPkgDeps(devDependencies, dependencies);
 export default defineConfig(({ command, mode }): UserConfig => {
   return {
     plugins: [
-      qwikCity(),
+      qwikCity({
+        // @ts-ignore
+        serviceWorker: true
+      }),
       qwikVite(),
       tsconfigPaths(),
     ],

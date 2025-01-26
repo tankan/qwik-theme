@@ -1,41 +1,28 @@
-import { component$, useStore, $, useTask$ } from '@builder.io/qwik';
+import { component$ } from '@builder.io/qwik';
+import { useTheme } from '~/hooks/useTheme';
 
 export const ThemeSwitcher = component$(() => {
-  const state = useStore({ theme: 'light' });
-
-  useTask$(() => {
-    if (typeof window !== 'undefined') {
-      const savedTheme = localStorage.getItem('theme') || 'light';
-      state.theme = savedTheme;
-      document.documentElement.setAttribute('data-theme', savedTheme);
-    }
-  });
-
-  const toggleTheme = $(() => {
-    const newTheme = state.theme === 'light' ? 'dark' : 'light';
-    state.theme = newTheme;
-    document.documentElement.setAttribute('data-theme', newTheme);
-    localStorage.setItem('theme', newTheme);
-
-    // 使用 service worker 发送通知
-    if ('serviceWorker' in navigator && 'Notification' in window) {
-      navigator.serviceWorker.ready.then((registration) => {
-        registration.showNotification('主题已切换', {
-          body: `已切换到${newTheme === 'light' ? '浅色' : '深色'}主题`,
-          icon: '/icons/icon-192x192.png',
-          badge: '/icons/badge-72x72.png'
-        });
-      });
-    }
-  });
+  const { theme, isLoading, toggleTheme } = useTheme();
 
   return (
     <button
       type="button"
-      class="p-2 text-sm font-medium border rounded bg-primary text-foreground hover:bg-hover"
+      disabled={isLoading}
+      class={[
+        'p-2 text-sm font-medium border rounded',
+        'bg-primary text-foreground',
+        'hover:bg-hover active:bg-hover/90',
+        'transition-colors duration-200',
+        'focus:outline-none focus:ring-2 focus:ring-primary/50',
+        'disabled:opacity-50 disabled:cursor-not-allowed',
+        // 移动端优化
+        'touch-manipulation select-none',
+        'sm:text-base sm:px-4'
+      ].join(' ')}
       onClick$={toggleTheme}
+      aria-label={`切换到${theme === 'light' ? '深色' : '浅色'}主题`}
     >
-      切换到{state.theme === 'light' ? '深色' : '浅色'}主题
+      {isLoading ? '加载中...' : `切换到${theme === 'light' ? '深色' : '浅色'}主题`}
     </button>
   );
 });
