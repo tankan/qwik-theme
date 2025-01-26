@@ -53,6 +53,18 @@ export const InstallPWA = component$(() => {
 
   // 安装 PWA
   const installApp = $(async () => {
+    // 检查是否在安全上下文中
+    if (!window.isSecureContext) {
+      console.error('需要安全上下文(HTTPS)才能安装 PWA');
+      return;
+    }
+
+    // 检查是否在 iframe 中
+    if (window.top !== window.self) {
+      console.error('不能在 iframe 中安装 PWA');
+      return;
+    }
+
     if (!deferredPrompt.value) {
       console.log('没有可用的安装提示');
       return;
