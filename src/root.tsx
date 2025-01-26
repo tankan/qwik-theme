@@ -81,7 +81,7 @@ export default component$(() => {
         
         {/* 其他优化 */}
         <meta name="description" content="A theme system for Qwik" />
-        <meta name="robots" content="noindex, nofollow" />
+        <meta name="robots" content="index, follow" />
         <RouterHead />
       </head>
       <body lang="en" class="overscroll-none">
