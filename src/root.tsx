@@ -82,6 +82,67 @@ export default component$(() => {
         {/* 其他优化 */}
         <meta name="description" content="A theme system for Qwik" />
         <meta name="robots" content="index, follow" />
+        
+        {/* 结构化数据 */}
+        <script type="application/ld+json" dangerouslySetInnerHTML={`
+          {
+            "@context": "https://schema.org",
+            "@type": "WebApplication",
+            "name": "QTheme",
+            "description": "A theme system for Qwik",
+            "url": "https://yourdomain.com",
+            "applicationCategory": "DeveloperApplication",
+            "operatingSystem": "All",
+            "offers": {
+              "@type": "Offer",
+              "price": "0",
+              "priceCurrency": "USD"
+            },
+            "author": {
+              "@type": "Person",
+              "name": "Your Name",
+              "url": "https://github.com/yourusername"
+            },
+            "browserRequirements": "Requires JavaScript. Requires HTML5.",
+            "softwareVersion": "1.0.0",
+            "screenshot": {
+              "@type": "ImageObject",
+              "url": "https://yourdomain.com/screenshots/light.png",
+              "caption": "Light theme screenshot"
+            },
+            "aggregateRating": {
+              "@type": "AggregateRating",
+              "ratingValue": "5",
+              "ratingCount": "1",
+              "bestRating": "5",
+              "worstRating": "1"
+            },
+            "featureList": [
+              "Theme switching",
+              "PWA support",
+              "Mobile optimized",
+              "Security enhanced"
+            ],
+            "keywords": "qwik, theme, pwa, web application",
+            "thumbnailUrl": "https://yourdomain.com/icons/icon-512x512.png",
+            "installUrl": "https://yourdomain.com",
+            "requirements": "Modern web browser with JavaScript enabled"
+          }
+        `} />
+
+        {/* 开放图谱协议标记 */}
+        <meta property="og:title" content="QTheme - A theme system for Qwik" />
+        <meta property="og:description" content="A modern theme system built with Qwik framework" />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://yourdomain.com" />
+        <meta property="og:image" content="https://yourdomain.com/screenshots/light.png" />
+        
+        {/* Twitter 卡片 */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="QTheme - A theme system for Qwik" />
+        <meta name="twitter:description" content="A modern theme system built with Qwik framework" />
+        <meta name="twitter:image" content="https://yourdomain.com/screenshots/light.png" />
+        
         <RouterHead />
       </head>
       <body lang="en" class="overscroll-none">
