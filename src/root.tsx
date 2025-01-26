@@ -23,7 +23,7 @@ export default component$(() => {
       <head>
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no, maximum-scale=1.0, minimum-scale=1.0" />
         
         {/* DNS 预解析和资源预连接，防止运营商劫持 */}
         <link rel="dns-prefetch" href="//fonts.googleapis.com" />
