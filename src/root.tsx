@@ -100,7 +100,7 @@ export default component$(() => {
             <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
             
             {/* PWA 相关 */}
-            <link rel="manifest" href="/manifest.json" />
+            <link rel="manifest" href="/manifest" />
             <link rel="apple-touch-icon" href="/icons/icon-192x192.png" />
             <link 
               rel="mask-icon" 

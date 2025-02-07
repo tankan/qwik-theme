@@ -1,8 +1,6 @@
-import type { RequestHandler, RequestEvent } from '@builder.io/qwik-city';
+import type { RequestEvent, RequestHandler } from '@builder.io/qwik-city';
 
-export const onRequest: RequestHandler = async (event: RequestEvent) => {
-  const { request, next, headers } = event;
-  
+export const onRequest: RequestHandler = async ({ request, next, headers }: RequestEvent) => {
   // 基本安全头
   headers.set('X-Content-Type-Options', 'nosniff');
   headers.set('X-Frame-Options', 'SAMEORIGIN');
@@ -43,17 +41,18 @@ export const onRequest: RequestHandler = async (event: RequestEvent) => {
   try {
     // 简单的请求限制
     const clientIP = request.headers.get('x-forwarded-for') || 'unknown';
-    const requestCount = await getRequestCount(clientIP);
+    const requestCount = getRequestCount(clientIP);
     
     if (requestCount > 100) {
-      throw event.error(429, 'Too Many Requests');
+      throw new Error('Too Many Requests');
     }
 
     if (request.method === 'POST' && !request.headers.get('content-type')?.includes('application/json')) {
-      throw event.error(415, 'Unsupported Media Type');
+      throw new Error('Unsupported Media Type');
     }
 
     await next();
+
   } catch (error: any) {
     // 错误处理
     console.error('Request error:', error);
@@ -62,14 +61,14 @@ export const onRequest: RequestHandler = async (event: RequestEvent) => {
       headers.set('Cache-Control', 'no-store');
     }
 
-    throw event.error(error.status || 500, error.message);
+    throw new Error(error.message || 'Internal Server Error');
   }
 };
 
 // 简单的内存请求计数器
 const requestCounts = new Map<string, { count: number; timestamp: number }>();
 
-async function getRequestCount(clientIP: string): Promise<number> {
+function getRequestCount(clientIP: string): number {
   const now = Date.now();
   const minute = 60 * 1000;
   const data = requestCounts.get(clientIP);
