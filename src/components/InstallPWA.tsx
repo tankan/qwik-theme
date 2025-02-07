@@ -1,8 +1,10 @@
 import { component$, useSignal, useOnDocument, useVisibleTask$, $ } from '@builder.io/qwik';
+import { useI18n } from '~/hooks/useI18n';
 
 export const InstallPWA = component$(() => {
   const deferredPrompt = useSignal<any>(null);
   const showInstallPrompt = useSignal(false);
+  const { t } = useI18n();
 
   // 检查 PWA 安装状态
   // eslint-disable-next-line qwik/no-use-visible-task
@@ -90,7 +92,7 @@ export const InstallPWA = component$(() => {
         onClick$={triggerInstall}
         class="fixed top-4 right-4 px-3 py-1.5 text-sm bg-primary text-foreground rounded hover:bg-primary/90 transition-colors"
       >
-        测试安装
+        {t('common.pwa.install')}
       </button>
 
       {/* 安装提示 */}
@@ -98,9 +100,9 @@ export const InstallPWA = component$(() => {
         <div class="fixed bottom-4 left-4 right-4 md:left-auto md:right-4 md:w-80 bg-foreground p-4 rounded-lg shadow-lg z-50">
           <div class="flex flex-col gap-3">
             <div class="text-text-primary">
-              <h3 class="font-medium">安装应用</h3>
+              <h3 class="font-medium">{t('common.pwa.title')}</h3>
               <p class="text-sm text-text-secondary mt-1">
-                将此应用安装到您的设备，随时使用收钱码功能
+                {t('common.pwa.description')}
               </p>
             </div>
             <div class="flex justify-end gap-2">
@@ -108,13 +110,13 @@ export const InstallPWA = component$(() => {
                 onClick$={() => showInstallPrompt.value = false}
                 class="px-3 py-1.5 text-sm text-text-secondary hover:text-text-primary transition-colors"
               >
-                稍后再说
+                {t('common.pwa.later')}
               </button>
               <button
                 onClick$={installApp}
                 class="px-3 py-1.5 text-sm bg-primary text-foreground rounded hover:bg-primary/90 transition-colors"
               >
-                立即安装
+                {t('common.pwa.install')}
               </button>
             </div>
           </div>

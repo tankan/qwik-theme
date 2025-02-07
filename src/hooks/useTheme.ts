@@ -21,18 +21,11 @@ export const useTheme = () => {
   });
 
   // 切换主题
-  const toggleTheme = $(async () => {
-    try {
-      state.isLoading = true;
-      const newTheme = state.theme === 'light' ? 'dark' : 'light';
-      state.theme = newTheme;
-      document.documentElement.setAttribute('data-theme', newTheme);
-      localStorage.setItem('theme', newTheme);
-    } catch (error) {
-      console.warn('主题切换出错:', error);
-    } finally {
-      state.isLoading = false;
-    }
+  const toggleTheme = $((newTheme: Theme) => {
+    if (state.isLoading) return;
+    state.theme = newTheme;
+    document.documentElement.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
   });
 
   return {

@@ -1,12 +1,24 @@
-import { component$ } from '@builder.io/qwik';
+import { component$, useResource$, Resource } from '@builder.io/qwik';
 import { useTheme } from '~/hooks/useTheme';
+import { useI18n } from '~/hooks/useI18n';
+import type { Theme } from '~/types';
 
 export const ThemeSwitcher = component$(() => {
   const { theme, isLoading, toggleTheme } = useTheme();
+  const { t } = useI18n();
+
+  const translations = useResource$(async () => {
+    const [light, dark, system] = await Promise.all([
+      t('common.theme.light'),
+      t('common.theme.dark'),
+      t('common.theme.system')
+    ]);
+    return { light, dark, system };
+  });
 
   return (
-    <button
-      type="button"
+    <select
+      value={theme}
       disabled={isLoading}
       class={[
         'p-2 text-sm font-medium border rounded',
@@ -19,10 +31,22 @@ export const ThemeSwitcher = component$(() => {
         'touch-manipulation select-none',
         'sm:text-base sm:px-4'
       ].join(' ')}
-      onClick$={toggleTheme}
-      aria-label={`切换到${theme === 'light' ? '深色' : '浅色'}主题`}
+      onChange$={(e) => {
+        const selectedTheme = (e.target as HTMLSelectElement).value as Theme;
+        toggleTheme(selectedTheme);
+      }}
+      aria-label={`切换主题 (当前: ${theme})`}
     >
-      {isLoading ? '加载中...' : `切换到${theme === 'light' ? '深色' : '浅色'}主题`}
-    </button>
+      <Resource
+        value={translations}
+        onResolved={(trans) => (
+          <>
+            <option value="light">{trans.light}</option>
+            <option value="dark">{trans.dark}</option>
+            <option value="system">{trans.system}</option>
+          </>
+        )}
+      />
+    </select>
   );
 });
